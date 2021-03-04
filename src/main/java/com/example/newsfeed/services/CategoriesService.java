@@ -14,4 +14,12 @@ public class CategoriesService {
     public Category findByName(String name) {
         return categoriesRepository.findByName(name);
     }
+
+    public boolean existsByName(String name) {
+        return categoriesRepository.existsByName(name);
+    }
+
+    public Iterable<Category> getAllCategories() {
+        return categoriesRepository.findAll();
+    }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @NotNull(message = "выберите категорию")
     private String name;
 
     @JsonIgnore
