@@ -1,8 +1,8 @@
 INSERT INTO categories (id, name) VALUES
 
-(10, 'INTERESTING'),
-(11, 'POLITICS'),
-(12, 'TECH');
+(100, 'INTERESTING'),
+(101, 'POLITICS'),
+(102, 'TECH');
 
 
 -- INSERT INTO news (id, title, text, created_time, category_id) VALUES
