@@ -1,33 +1,20 @@
 function get_news() {
     $.get('/news', function (data) {
-        let news = '<div class="col-sm">';
-        for (let i = 0; i < data.length; i++) {
-            jQuery.data(document.body)
-            news += fill_story_html(data[i].id, data[i].title, data[i].text, data[i].created_time);
-        }
-        news += '</div>';
+        let news = get_html_for_newsfeed(data)
         $("#newsfeed").html(news);
     })
 }
 
 function get_news_by_category() {
     $.get('/news/category?category=' + $("#category-to-show").val(), function (data) {
-        let news = '<div class="col-sm">';
-        for (let i = 0; i < data.length; i++) {
-            news += fill_story_html(data[i].id, data[i].title, data[i].text, data[i].created_time)
-        }
-        news += '</div>'
+        let news = get_html_for_newsfeed(data)
         $("#newsfeed").html(news)
     })
 }
 
 function get_news_by_query() {
     $.get('/news/search?query=' + $("#search-field").val(), function (data) {
-        let news = '<div class="col-sm">';
-        for (let i = 0; i < data.length; i++) {
-            news += fill_story_html(data[i].id, data[i].title, data[i].text, data[i].created_time)
-        }
-        news += '</div>'
+        let news = get_html_for_newsfeed(data)
         $("#newsfeed").html(news)
     })
 }
@@ -49,7 +36,7 @@ function get_story() {
     $.get("/news/" + story_id, function (data) {
         $('#title-edit').val(data.title);
         $('#text-edit').val(data.text);
-        $('#category-for-story').val(data.category.name);
+        $('#category-for-story').val(data.category);
         $('#time-field').val(data.created_time)
     })
 }
@@ -73,7 +60,6 @@ function add_story() {
             get_news();
         },
         error: function (e) {
-            alert(new Date($.now()).toLocaleDateString());
             let errors = e.responseText;
             errors = errors.substring(1, errors.length - 1).split(',');
             $.each(errors, function (index, value) {
@@ -117,7 +103,7 @@ function show_single_story_page(story_id) {
     window.location.href = "http://localhost:8080/story?id=" + story_id;
 }
 
-function fill_story_html(id, title, text, time) {
+function get_html_for_one_story(id, title, text, time) {
     return '<div class="card border-primary mb-3" style="width: 100rem;">\n' +
         '         <div class="card-body" data-id="' + id + '">\n' +
         '             <h5 class="card-title">' + title + '</h5>\n' +
@@ -129,4 +115,13 @@ function fill_story_html(id, title, text, time) {
         '              </div>\n' +
         '         </div>\n' +
         '     </div>';
+}
+
+function get_html_for_newsfeed(data) {
+    let news = '<div class="col-sm">';
+    for (let i = 0; i < data.length; i++) {
+        news += get_html_for_one_story(data[i].id, data[i].title, data[i].text, data[i].created_time)
+    }
+    news += '</div>';
+    return news;
 }
