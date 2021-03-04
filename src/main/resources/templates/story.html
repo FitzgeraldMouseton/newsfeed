@@ -6,53 +6,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="/js/main.js"></script>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 
 <script type="text/javascript">
-
-    function get_story() {
-        let story_id = new URLSearchParams(window.location.search).get('id');
-        $.get("/news/" + story_id, function (data) {
-            $("#title-edit").val(data.title);
-            $("#text-edit").val(data.text);
-            $("#category-for-story").val(data.category.name);
-        })
-    }
-
-    function get_categories() {
-        $.get('/categories', function (data) {
-            let s = '<select><option value="-1">Выберите категорию</option>';
-            for (let i = 0; i < data.length; i++) {
-                s += '<option value=' + data[i].name + '>' + data[i].name + '</option>';
-            }
-            s += '</select>';
-            $("#category-for-story").html(s)
-            $("#category-to-chose").html(s)
-        })
-    }
-
-    function edit_story() {
-        let story_id = new URLSearchParams(window.location.search).get('id');
-        $.ajax({
-            url: '/news/edit/' + story_id,
-            dataType: 'json',
-            type: 'PUT',
-            cache: false,
-            contentType: 'application/json',
-            data: JSON.stringify({
-                id : story_id,
-                title: $("#title-edit").val(),
-                text: $("#text-edit").val(),
-                category: $('#category-for-story').val()
-            })
-        })
-    }
-
     $(document).ready(function () {
-        get_story()
-        get_categories()
+        get_story();
+        get_categories();
     })
 </script>
 
@@ -75,10 +37,11 @@
             <div class="col-sm">
                 <div class="card" style="width: 100rem;">
                     <div class="card-body" id="story-to-edit">
-                        <textarea id="title-edit" class="form-control">hj</textarea>
+                        <textarea id="title-edit" class="form-control"></textarea>
                         <textarea id="text-edit" class="form-control" rows="15"></textarea>
+                        <input type="text" readonly class="form-control-plaintext" id="time-field" value="' + time + '">
                         <a href="/" class="btn btn-primary" onclick="edit_story()">Сохранить</a>
-                        <a href="/" class="btn btn-primary" onclick="clear_storage()">Отмена</a>
+                        <a href="/" class="btn btn-primary">Отмена</a>
                     </div>
                     <div class="form-group">
                         <label for="category-for-story">Выберите категорию</label>

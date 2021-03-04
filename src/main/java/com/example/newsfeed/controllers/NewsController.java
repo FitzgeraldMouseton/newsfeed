@@ -1,7 +1,6 @@
 package com.example.newsfeed.controllers;
 
 import com.example.newsfeed.models.Category;
-import com.example.newsfeed.models.Story;
 import com.example.newsfeed.models.dto.ResponseDto;
 import com.example.newsfeed.models.dto.StoryDto;
 import com.example.newsfeed.services.CategoriesService;
@@ -24,23 +23,23 @@ public class NewsController {
     private final CategoriesService categoriesService;
 
     @GetMapping
-    public List<Story> findAllNews() {
+    public List<StoryDto> findAllNews() {
         return newsService.findAllNews();
     }
 
     @GetMapping("/{id}")
-    public Story getStoryById(@PathVariable long id) {
+    public StoryDto getStoryById(@PathVariable long id) {
         return newsService.getStoryById(id);
     }
 
     @GetMapping("category")
-    public List<Story> findNewsByCategory(@RequestParam(name = "category") String categoryName) {
+    public List<StoryDto> findNewsByCategory(@RequestParam(name = "category") String categoryName) {
         Category category = categoriesService.findByName(categoryName);
         return newsService.findNewsByCategory(category);
     }
 
     @GetMapping("/search")
-    public List<Story> findNewsByQuery(@RequestParam String query) {
+    public List<StoryDto> findNewsByQuery(@RequestParam String query) {
         return newsService.findNewsByQuery(query);
     }
 

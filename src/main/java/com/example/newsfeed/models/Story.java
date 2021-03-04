@@ -21,7 +21,6 @@ public class Story {
 
     private String text;
 
-    @CreatedDate
     @Column(name = "created_time")
     private LocalDateTime createdTime;
 

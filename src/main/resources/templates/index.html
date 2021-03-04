@@ -11,6 +11,17 @@
     <title>Title</title>
 </head>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        get_categories();
+        get_news();
+
+        $("#category-to-show").on('change', function () {
+            get_news_by_category();
+        })
+    })
+</script>
+
 <body>
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">

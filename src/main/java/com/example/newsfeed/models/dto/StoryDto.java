@@ -1,6 +1,7 @@
 package com.example.newsfeed.models.dto;
 
 import com.example.newsfeed.validation.constraints.AssertCategoryExists;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Size;
@@ -16,6 +17,7 @@ public class StoryDto {
     @Size(min = 15, message = "Текст новости короче 15 символов")
     private String text;
 
+    @JsonProperty("created_time")
     private String createdTime;
 
     @AssertCategoryExists

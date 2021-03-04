@@ -1,5 +1,6 @@
-package com.example.newsfeed.exceptions;
+package com.example.newsfeed.exceptions.handler;
 
+import com.example.newsfeed.exceptions.PageNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
