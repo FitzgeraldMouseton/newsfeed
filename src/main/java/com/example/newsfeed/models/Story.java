@@ -19,6 +19,7 @@ public class Story {
 
     private String title;
 
+    @Column(columnDefinition="TEXT")
     private String text;
 
     @Column(name = "created_time")
