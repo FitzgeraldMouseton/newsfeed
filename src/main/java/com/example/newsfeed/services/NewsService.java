@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -67,13 +68,9 @@ public class NewsService {
         return new ResponseDto(true);
     }
 
-    private List<StoryDto> getStoryDtos(final Iterable<Story> news) {
-        List<StoryDto> storyDtos = new ArrayList<>();
-        news.forEach(story -> {
-            StoryDto dto = storyMapper.storyToDto(story);
-            storyDtos.add(dto);
-        });
-        return storyDtos;
+    private List<StoryDto> getStoryDtos(final List<Story> news) {
+        return news.stream().map(storyMapper::storyToDto)
+                .collect(Collectors.toList());
     }
 
     private boolean storyNotExist(Long id) {
